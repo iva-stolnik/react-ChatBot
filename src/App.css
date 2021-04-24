@@ -1,38 +1,75 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.header {
+  height: 15vh;
+  position: relative;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+h2 {
+  margin: 0.5em;
+}
+
+h4 {
+  text-align: start;
+  word-break: break-word;
+  display: inline-block;
+  max-width: 90%;
+  height: auto;
+  background-color: lightgrey;
+  margin: 0 0 5px auto;
+  padding: 0.2em 0.5em;
+  border-radius: 5px;
+}
+.chatbotH4 {
+  margin: 0 auto 5px 2px;
+}
+
+.mainContainer {
+  width: 70vw;
+  max-width: 800px;
+  height: 70vh;
+  overflow: hidden;
+  border: 1px solid black;
+  background-color: rgba(149, 177, 228, 0.5);
+  margin: auto;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.mainChatWindow {
+  width: 100%;
+  height: 100%;
+  border: 1px solid black;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.msgWindow {
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: rgb(224, 235, 195);
+  width: 90%;
+  height: 80%;
+  margin: auto;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column-reverse;
+  flex-wrap: nowrap;
+}
+
+input {
+  width: 90%;
+  padding: 0.5em;
 }
