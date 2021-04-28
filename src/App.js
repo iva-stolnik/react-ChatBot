@@ -36,8 +36,6 @@ function App() {
       data.map((msg) => {
         if (event.target.value === msg.q) {
           randomItem = msg.a;
-          checkUserInput = true;
-
           return randomItem;
         }
         return randomItem;
