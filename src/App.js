@@ -1,13 +1,11 @@
 import React from "react";
-import Header from "./components/Header";
 import Main from "./components/Main";
-import ChatWindow from "./components/ChatWindow";
-import Footer from "./components/Footer";
+import data from "./data.js";
 import "./App.css";
 
 function App() {
-  const [poruke, setPoruke] = React.useState([
-    ["Hello there, I am a chatbot. Talk to me whenever you want :)"],
+  const [userMsg, setUserMsg] = React.useState([
+    ["I am a chatbot. Talk to me whenever you want :)"],
   ]);
   const chatbotMsg = [
     "Deleted code is debugged code.",
@@ -20,30 +18,59 @@ function App() {
     "There’s no place like 127.0.0.1.",
     "There is an easy way and a hard way. The hard part is finding the easy way.",
   ];
-  //get random item from chatbotMsg and push it to poruke
-  const randomItem = chatbotMsg[Math.floor(Math.random() * chatbotMsg.length)];
+  //get random item from chatbotMsg and push it to userMsg
+  let randomItem = chatbotMsg[Math.floor(Math.random() * chatbotMsg.length)];
 
-  const updateChatbot = (event) => {
-    if (event.key === "Enter") {
-      setTimeout(() => {
-        setPoruke((old) => {
-          let newList = [...old, [randomItem]];
-          return newList;
-        });
-      }, Math.random() * 10000);
-    }
+  //save current message and update userMsg state
+  const saveUserMsg = (event) => {
+    let checkUserInput = false;
+    const newUserMsg = event.key === "Enter" ? event.target.value : "";
+
+    setUserMsg((old) => {
+      if (newUserMsg === "") {
+        let newState = [...old];
+        return newState;
+      }
+      let newState = [...old, newUserMsg];
+
+      data.map((msg) => {
+        if (event.target.value === msg.q) {
+          randomItem = msg.a;
+          checkUserInput = true;
+
+          return randomItem;
+        }
+        return randomItem;
+      });
+
+      if (checkUserInput) {
+        setTimeout(() => {
+          setUserMsg((old) => {
+            let newList = [...old, [randomItem]];
+            checkUserInput = false;
+            return newList;
+          });
+        }, Math.random() * 10000);
+      }
+
+      console.log(newState);
+      //reset values
+      event.target.value = "";
+      checkUserInput = true;
+
+      return newState;
+    });
   };
 
   return (
-    <div onKeyPress={(event) => updateChatbot(event)} className="App">
-      <Header />
-      <Main
-        ChatWindow={ChatWindow}
-        poruke={poruke}
-        setPoruke={setPoruke}
-        chatbotMsg={chatbotMsg}
-      />
-      <Footer />
+    <div className="App">
+      <header>
+        <h1>Chat app</h1>
+      </header>
+      <Main userMsg={userMsg} saveUserMsg={saveUserMsg} />
+      <footer>
+        <p>Iva Filipović © 2021</p>
+      </footer>
     </div>
   );
 }
